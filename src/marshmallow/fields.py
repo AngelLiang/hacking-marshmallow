@@ -639,6 +639,7 @@ class List(Field):
             self.inner.exclude = self.exclude
 
     def _serialize(self, value, attr, obj, **kwargs):
+        """序列化"""
         if value is None:
             return None
         # Optimize dumping a list of Nested objects by calling dump(many=True)
@@ -647,6 +648,7 @@ class List(Field):
         return [self.inner._serialize(each, attr, obj, **kwargs) for each in value]
 
     def _deserialize(self, value, attr, data, **kwargs):
+        """反序列化"""
         if not utils.is_collection(value):
             raise self.make_error("invalid")
         # Optimize loading a list of Nested objects by calling load(many=True)
